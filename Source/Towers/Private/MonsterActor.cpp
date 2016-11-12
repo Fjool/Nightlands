@@ -44,7 +44,7 @@ void AMonsterActor::Move()
 		// Calculate difference between where we are now and the exits and move Speed units towards it
 		FVector OurLocation = GetActorLocation();
 
-		SetActorLocation(OurLocation + (Target->GetActorLocation() - OurLocation).GetSafeNormal()
+		SetActorLocation( OurLocation + (Target->GetActorLocation() - OurLocation).GetSafeNormal() * Speed
 						, false
 						);
 	}
@@ -72,3 +72,7 @@ void AMonsterActor::Tick( float DeltaTime )
 	}
 }
 
+void AMonsterActor::Hurt(float damage)
+{
+	Health -= damage;
+}

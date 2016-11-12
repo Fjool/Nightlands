@@ -3,7 +3,6 @@
 #include "Towers.h"
 #include "ExitActor.h"
 
-
 // Sets default values
 AExitActor::AExitActor()
 {

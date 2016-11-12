@@ -20,16 +20,14 @@ void ASpawnActor::BeginPlay()
 
 void ASpawnActor::SpawnWave()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Spawn wave called"))
+	
 }
 
 // Called every frame
 void ASpawnActor::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
-	float WaveTime = 1.f;
-
-	UE_LOG(LogTemp, Warning, TEXT("Tick:: Delta: %f, LastSpawn: %f"), DeltaTime, LastSpawnTime )
+	float WaveTime = 10.f;	// seconds
 
 	if (LastSpawnTime > WaveTime)
 	{

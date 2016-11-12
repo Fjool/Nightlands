@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "ExitActor.h"
 #include "GameFramework/Actor.h"
 #include "MonsterActor.generated.h"
 
@@ -21,16 +20,20 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
-	UPROPERTY(EditAnywhere)
-	float Speed = 1.0f;
-
 	// Process the movement of the monster
 	void Move();
-	bool ReachedTarget();
-	void RemoveFromGame();
+
+	// Receive damage
+	void Hurt(float damage);
 
 private:
 	UPROPERTY(EditAnywhere)
 	AActor* Target = nullptr;
+
+	UPROPERTY(EditAnywhere) float Speed = 1;
+	UPROPERTY(EditAnywhere) float Health = 100;
+
+	bool ReachedTarget();
+	void RemoveFromGame();
 
 };

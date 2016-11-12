@@ -19,9 +19,8 @@ public:
 	
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
-
 	
-	void ASpawnActor::SpawnWave();
+	void SpawnWave();
 
 private:
 	float LastSpawnTime = 0.f;

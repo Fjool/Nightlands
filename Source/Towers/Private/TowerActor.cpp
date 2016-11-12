@@ -2,6 +2,7 @@
 
 #include "Towers.h"
 #include "TowerActor.h"
+#include "MonsterActor.h"
 
 // Sets default values
 ATowerActor::ATowerActor()
@@ -20,5 +21,22 @@ void ATowerActor::BeginPlay()
 void ATowerActor::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
+
+	// locate a random monster and hurt it
+	TSubclassOf<AMonsterActor> ClassToFind;
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ClassToFind, FoundActors);
+
+	if (FoundActors.Num() == 0)
+	{	
+		UE_LOG(LogTemp, Warning, TEXT("No monsters found")) 
+	}
+	else
+	{	UE_LOG(LogTemp, Warning, TEXT("Found a monster"))
+	//	Cast<AMonsterActor>(FoundActors[0])->Hurt(1);
+	}
+	
+
+	
 }
 
