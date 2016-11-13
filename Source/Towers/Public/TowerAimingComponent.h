@@ -6,6 +6,7 @@
 #include "TowerAimingComponent.generated.h"
 
 class UTower_Base;
+class UTower_Tower;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TOWERS_API UTowerAimingComponent : public UActorComponent
@@ -13,7 +14,8 @@ class TOWERS_API UTowerAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	void SetBaseReference(UTower_Base* BaseToSet);
+	void SetBaseReference(  UTower_Base* BaseToSet);
+	void SetTowerReference(UTower_Tower* TowerToSet);
 
 	// Sets default values for this component's properties
 	UTowerAimingComponent();

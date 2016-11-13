@@ -6,14 +6,16 @@
 #include "Tower_Tower.generated.h"
 
 /**
- * 
- */
-UCLASS()
+*
+*/
+UCLASS(meta = (BlueprintSpawnableComponent))
 class TOWERS_API UTower_Tower : public UStaticMeshComponent
 {
 	GENERATED_BODY()
-	
-	
-	
-	
+
+public:
+	void Rotate(float Difference);
+
+private:
+
 };

@@ -5,6 +5,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "Tower_Base.generated.h"
 
+class UTower_Tower;
+
 /**
  * 
  */
@@ -14,9 +16,12 @@ class TOWERS_API UTower_Base : public UStaticMeshComponent
 	GENERATED_BODY()
 
 public:
-	void Rotate(float Direction);
+	void Rotate(FVector Direction);
+	void SetTowerReference(UTower_Tower* TowerToSet);
 
 private:
-	UPROPERTY(EditAnywhere, Category = Setup) float RotationSpeed		= 100; // TODO Find sensible value
-	UPROPERTY(EditAnywhere, Category = Setup) float MaxDegreesPerSecond =  20; // TODO Find sensible value
+	UPROPERTY(EditAnywhere, Category = Setup) float MaxDegreesPerSecond = 20; // TODO Find sensible value
+	
+	UTower_Tower* Tower = nullptr;
+
 };

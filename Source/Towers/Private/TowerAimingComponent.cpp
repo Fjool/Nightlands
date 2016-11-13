@@ -23,6 +23,8 @@ void UTowerAimingComponent::SetBaseReference(UTower_Base* BaseToSet)
 	if (!Base) { UE_LOG(LogTemp, Warning, TEXT("No base provded to tower")) }
 }
 
+void UTowerAimingComponent::SetTowerReference(UTower_Tower* TowerToSet){ if (Base) { Base->SetTowerReference(TowerToSet); } }
+
 void UTowerAimingComponent::AimAt(FVector TargetLocation)
 {
 	// rotate tower to face target
@@ -35,10 +37,6 @@ void UTowerAimingComponent::RotateBaseTowards(FVector AimDirection)
 				 return;
 	}
 	else
-	{	auto  BaseRotator = Base->GetForwardVector().Rotation();
-		auto AimAsRotator = AimDirection.Rotation();
-		auto DeltaRotator = AimAsRotator - BaseRotator;
-
-		Base->Rotate(DeltaRotator.Yaw);
+	{	Base->Rotate(AimDirection);
 	}
 }

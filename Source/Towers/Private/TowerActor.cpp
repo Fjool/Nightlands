@@ -6,16 +6,8 @@
 #include "TowerAimingComponent.h"
 
 // Pass on components to aiming system
-void ATowerActor::SetBaseReference(UTower_Base* BaseToSet) 
-{ 
-	if (!TowerAimingComponent)
-	{	UE_LOG(LogTemp, Warning, TEXT("No Aim Component")); 
-	}
-	else
-	{	UE_LOG(LogTemp, Warning, TEXT("SetBaseReference"))
-		TowerAimingComponent->SetBaseReference(BaseToSet); 
-	}
-}
+void ATowerActor::SetBaseReference( UTower_Base*   BaseToSet){ TowerAimingComponent->SetBaseReference(  BaseToSet); }
+void ATowerActor::SetTowerReference(UTower_Tower* TowerToSet){ TowerAimingComponent->SetTowerReference(TowerToSet); }
 
 // Sets default values
 ATowerActor::ATowerActor()
