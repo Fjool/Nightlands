@@ -7,4 +7,3 @@ void UTower_Tower::Rotate(float Difference)
 {	
 	SetRelativeRotation(FRotator(0, RelativeRotation.Yaw + Difference, 0));
 }
-

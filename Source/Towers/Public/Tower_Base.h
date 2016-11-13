@@ -1,5 +1,4 @@
 // (C) 2016 Mesomorphic Ltd
-
 #pragma once
 
 #include "Components/StaticMeshComponent.h"
@@ -7,9 +6,6 @@
 
 class UTower_Tower;
 
-/**
- * 
- */
 UCLASS(meta = (BlueprintSpawnableComponent))
 class TOWERS_API UTower_Base : public UStaticMeshComponent
 {
@@ -20,7 +16,7 @@ public:
 	void SetTowerReference(UTower_Tower* TowerToSet);
 
 private:
-	UPROPERTY(EditAnywhere, Category = Setup) float MaxDegreesPerSecond = 20; // TODO Find sensible value
+	UPROPERTY(EditAnywhere, Category = Setup) float MaxDegreesPerSecond = 50;
 	
 	UTower_Tower* Tower = nullptr;
 

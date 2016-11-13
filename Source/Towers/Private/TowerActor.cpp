@@ -27,7 +27,7 @@ void ATowerActor::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
-	// locate closest monster and hurt it
+	// try to hurt our target
 	if (Target) 
 	{	
 		TowerAimingComponent->AimAt(Target->GetActorLocation());		
