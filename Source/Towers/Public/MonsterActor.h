@@ -25,11 +25,10 @@ public:
 
 	// Receive damage
 	void Hurt(float damage);
+	void SetTarget(AActor* inTarget);
 
 private:
-	UPROPERTY(EditAnywhere)
-	AActor* Target = nullptr;
-
+	UPROPERTY(EditAnywhere) AActor* Target = nullptr;
 	UPROPERTY(EditAnywhere) float Speed = 1;
 	UPROPERTY(EditAnywhere) float Health = 100;
 

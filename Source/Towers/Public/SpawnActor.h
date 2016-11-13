@@ -5,6 +5,8 @@
 #include "GameFramework/Actor.h"
 #include "SpawnActor.generated.h"
 
+class AMonsterActor;
+
 UCLASS()
 class TOWERS_API ASpawnActor : public AActor
 {
@@ -23,6 +25,9 @@ public:
 	void SpawnWave();
 
 private:
+	UPROPERTY(EditAnywhere, Category = Setup) TSubclassOf<AMonsterActor> MonsterBlueprint = nullptr;
+	UPROPERTY(EditAnywhere, Category = Setup) AActor* Exit = nullptr;
+	UPROPERTY(EditAnywhere, Category = Setup) float SpawnRate = 1;
+	
 	float LastSpawnTime = 0.f;
-
 };
