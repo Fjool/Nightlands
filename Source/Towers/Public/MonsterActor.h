@@ -1,9 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// (C) 2016 Mesomorphic Ltd
 
 #pragma once
 
 #include "GameFramework/Actor.h"
 #include "MonsterActor.generated.h"
+
+class ALevelController;
 
 UCLASS()
 class TOWERS_API AMonsterActor : public AActor
@@ -27,7 +29,10 @@ public:
 	void Hurt(float damage);
 	void SetTarget(AActor* inTarget);
 
+	UPROPERTY(EditAnywhere) ALevelController* Controller = nullptr;
+
 private:
+
 	UPROPERTY(EditAnywhere) AActor* Target = nullptr;
 	UPROPERTY(EditAnywhere) float Speed = 1;
 	UPROPERTY(EditAnywhere) float Health = 100;

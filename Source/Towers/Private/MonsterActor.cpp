@@ -3,6 +3,7 @@
 #include "Towers.h"
 #include "MonsterActor.h"
 #include "ExitActor.h"
+#include "LevelController.h"
 
 // Sets default values
 AMonsterActor::AMonsterActor()
@@ -38,12 +39,12 @@ void AMonsterActor::SetTarget(AActor* inTarget)
 
 bool AMonsterActor::ReachedTarget()
 {
-	return false;
-}
+	auto MonsterLocation =         GetActorLocation();
+	auto TargetLocation  = Target->GetActorLocation();
 
-void AMonsterActor::RemoveFromGame()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Goodbye cruel world..."))
+	UE_LOG(LogTemp, Warning, TEXT("Distance to target: %s"), *(MonsterLocation - TargetLocation).ToString())
+
+	return (MonsterLocation.Equals(TargetLocation, 5.f));
 }
 
 // Called every frame
@@ -51,10 +52,11 @@ void AMonsterActor::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 	Move();
-
 	if (ReachedTarget())
 	{
-		RemoveFromGame();
+		// call out to controller
+		if (Controller) { Controller->ReachedTarget(this); }
+		else { UE_LOG(LogTemp, Error, TEXT("No controller")) }
 	}
 }
 

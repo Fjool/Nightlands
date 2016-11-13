@@ -3,6 +3,7 @@
 #include "Towers.h"
 #include "SpawnActor.h"
 #include "MonsterActor.h"
+#include "LevelController.h"
 
 // Sets default values
 ASpawnActor::ASpawnActor()
@@ -18,19 +19,28 @@ void ASpawnActor::BeginPlay()
 	Super::BeginPlay();
 }
 
+AMonsterActor* ASpawnActor::SpawnMonster()
+{
+	// boring, single monster, once per second (configurable)
+	AMonsterActor* NewMonster = GetWorld()->SpawnActor<AMonsterActor>( MonsterBlueprint
+																	 , GetActorLocation()	// TODO - Have this based on Spawner's blueprint pivots
+																	 , GetActorRotation()
+																	 );
+	NewMonster->SetTarget(Exit);
+	
+	if (!Controller) { UE_LOG(LogTemp, Error, TEXT("No controller provided to generator : "), *GetName()) }
+	else
+	{	Controller->RegisterMonster(NewMonster);
+	}
+
+	return NewMonster;
+}
+
 void ASpawnActor::SpawnWave()
 {
-	if (!Exit) { UE_LOG(LogTemp, Warning, TEXT("No exit spefied for generator: %s"), *GetName())
-				 return; 
-			   }
+	if (!Exit) { UE_LOG(LogTemp, Warning, TEXT("ASpawnActor::SpawnWave - No exit spefied for generator: %s"), *GetName()) }
 	else
-	{
-		// boring, single monster, once per second (configurable)
-		AMonsterActor* NewMonster = GetWorld()->SpawnActor<AMonsterActor>( MonsterBlueprint
-																		 , GetActorLocation()
-																		 , GetActorRotation()
-																		 );
-		NewMonster->SetTarget(Exit);
+	{	SpawnMonster();
 	}
 }
 
