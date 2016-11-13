@@ -3,12 +3,17 @@
 #include "Towers.h"
 #include "TowerActor.h"
 #include "MonsterActor.h"
+#include "TowerAimingComponent.h"
+
+// Pass on components to aiming system
+void ATowerActor::SetBaseReference( UTower_Base*   BaseToSet){ TowerAimingComponent->SetBaseReference(  BaseToSet); }
+void ATowerActor::SetTowerReference(UTower_Tower* TowerToSet){ TowerAimingComponent->SetTowerReference(TowerToSet); }
 
 // Sets default values
 ATowerActor::ATowerActor()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	TowerAimingComponent = CreateDefaultSubobject<UTowerAimingComponent>(FName("Aiming Component"));
 }
 
 // Called when the game starts or when spawned
@@ -22,21 +27,10 @@ void ATowerActor::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
-	// locate a random monster and hurt it
-	TSubclassOf<AMonsterActor> ClassToFind;
-	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ClassToFind, FoundActors);
-
-	if (FoundActors.Num() == 0)
+	// try to hurt our target
+	if (Target) 
 	{	
-		UE_LOG(LogTemp, Warning, TEXT("No monsters found")) 
+		TowerAimingComponent->AimAt(Target->GetActorLocation());		
 	}
-	else
-	{	UE_LOG(LogTemp, Warning, TEXT("Found a monster"))
-	//	Cast<AMonsterActor>(FoundActors[0])->Hurt(1);
-	}
-	
-
-	
 }
 
