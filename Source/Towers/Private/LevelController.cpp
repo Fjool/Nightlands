@@ -26,8 +26,6 @@ void ALevelController::BeginPlay()
 void ALevelController::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
-
-	// iterate through list of monsters and remove any that are dead
 }
 
 void ALevelController::RegisterMonster(AMonsterActor* Monster)
