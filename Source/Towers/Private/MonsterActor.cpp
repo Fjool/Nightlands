@@ -39,12 +39,7 @@ void AMonsterActor::SetTarget(AActor* inTarget)
 
 bool AMonsterActor::ReachedTarget()
 {
-	auto MonsterLocation =         GetActorLocation();
-	auto TargetLocation  = Target->GetActorLocation();
-
-	UE_LOG(LogTemp, Warning, TEXT("Distance to target: %s"), *(MonsterLocation - TargetLocation).ToString())
-
-	return (MonsterLocation.Equals(TargetLocation, 5.f));
+	return (GetActorLocation().Equals(Target->GetActorLocation(), 5.f));
 }
 
 // Called every frame

@@ -6,6 +6,7 @@
 #include "LevelController.generated.h"
 
 class AMonsterActor;
+class ATowerActor;
 
 UCLASS()
 class TOWERS_API ALevelController : public AActor
@@ -27,6 +28,9 @@ public:
 	void ReachedTarget(AMonsterActor* Monster);
 
 private:
-	//TArray<AMonster>* Monsters = [];
+	TArray<AMonsterActor*> Monsters;
+	ATowerActor* Tower;	// TODO Enable more towers
+
+	UPROPERTY(EditDefaultsOnly, Category = Setup) TSubclassOf<ATowerActor> TowerBlueprint = nullptr;
 
 };

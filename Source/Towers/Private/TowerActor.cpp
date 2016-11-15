@@ -4,6 +4,7 @@
 #include "TowerActor.h"
 #include "MonsterActor.h"
 #include "TowerAimingComponent.h"
+#include "LevelController.h"
 
 // Pass on components to aiming system
 void ATowerActor::SetBaseReference( UTower_Base*   BaseToSet){ TowerAimingComponent->SetBaseReference(  BaseToSet); }
@@ -15,6 +16,10 @@ ATowerActor::ATowerActor()
 	PrimaryActorTick.bCanEverTick = true;
 	TowerAimingComponent = CreateDefaultSubobject<UTowerAimingComponent>(FName("Aiming Component"));
 }
+
+// Receive instructions on which monster to attack
+void ATowerActor::SetTarget(AMonsterActor* Monster) {        Target  = Monster; }
+bool ATowerActor::HasTarget(                      ) { return Target != nullptr; }
 
 // Called when the game starts or when spawned
 void ATowerActor::BeginPlay()
@@ -33,4 +38,3 @@ void ATowerActor::Tick( float DeltaTime )
 		TowerAimingComponent->AimAt(Target->GetActorLocation());		
 	}
 }
-

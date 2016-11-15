@@ -3,6 +3,7 @@
 #include "Towers.h"
 #include "LevelController.h"
 #include "MonsterActor.h"
+#include "TowerActor.h"
 
 // LevelController is responsible for:
 //  - Removing dead monsters
@@ -20,22 +21,34 @@ ALevelController::ALevelController()
 void ALevelController::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// one lonely tower
+	Tower = GetWorld()->SpawnActor<ATowerActor>(TowerBlueprint, FVector(0), FRotator(0));
+	Tower->Controller = this;
 }
 
 // Called every frame
 void ALevelController::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
+
+	if (!Tower->HasTarget())
+	{
+		if (Monsters.Num() > 0)
+		{	Tower->SetTarget(Monsters[0]);
+		}
+	}
 }
 
 void ALevelController::RegisterMonster(AMonsterActor* Monster)
 {
 	Monster->Controller = this;
-	// TODO Store a list of monsters
+	Monsters.Add(Monster);
 }
 
+// Called by a monster when it reaches its target
 void ALevelController::ReachedTarget(AMonsterActor* Monster)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Monster reached target : %s"), *Monster->GetName())
-	Monster->Destroy();
+	Monsters.Remove(Monster);
+	Monster->Destroy();		
 }
