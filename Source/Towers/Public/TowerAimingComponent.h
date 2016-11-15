@@ -7,6 +7,8 @@
 
 class UTower_Base;
 class UTower_Tower;
+class UTower_Turret;
+class UTower_Barrel;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TOWERS_API UTowerAimingComponent : public UActorComponent
@@ -14,8 +16,11 @@ class TOWERS_API UTowerAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	void SetBaseReference(  UTower_Base* BaseToSet);
-	void SetTowerReference(UTower_Tower* TowerToSet);
+	void SetReferences( UTower_Base*     BaseToSet
+					  , UTower_Tower*   TowerToSet
+					  , UTower_Turret* TurretToSet
+					  , UTower_Barrel* BarrelToSet
+					  );
 
 	// Sets default values for this component's properties
 	UTowerAimingComponent();
@@ -27,7 +32,10 @@ public:
 	virtual void AimAt(FVector TargetLocation);
 
 private:
-	UTower_Base* Base = nullptr;
+	UTower_Base*     Base = nullptr;
+	UTower_Tower*   Tower = nullptr;
+	UTower_Turret* Turret = nullptr;
+	UTower_Barrel* Barrel = nullptr;
 
 	void RotateBaseTowards(FVector AimDirection);
 

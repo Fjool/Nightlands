@@ -11,6 +11,8 @@
 class AMonsterActor;
 class UTower_Base;
 class UTower_Tower;
+class UTower_Turret;
+class UTower_Barrel;
 class UTowerAimingComponent;
 class ALevelController;
 
@@ -20,8 +22,6 @@ class TOWERS_API ATowerActor : public AActor
 	GENERATED_BODY()
 	
 public:	
-	UPROPERTY(EditAnywhere) ALevelController* Controller = nullptr;
-
 	// Sets default values for this actor's properties
 	ATowerActor();
 
@@ -34,11 +34,16 @@ public:
 	void SetTarget(AMonsterActor* Monster);
 	bool HasTarget();
 
+	UPROPERTY(EditAnywhere) ALevelController* Controller = nullptr;
+
+	UFUNCTION(BlueprintCallable, Category = Setup) void SetReferences( UTower_Base*     BaseToSet
+																	 , UTower_Tower*   TowerToSet
+																	 , UTower_Turret* TurretToSet
+																	 , UTower_Barrel* BarrelToSet
+																	 );
 private:
 	UPROPERTY(EditAnywhere) AMonsterActor* Target = nullptr;
 	UPROPERTY(EditAnywhere) float LaunchSpeed = 100;	// TODO Set sensible default
-	UFUNCTION(BlueprintCallable, Category = Setup) void  SetBaseReference(UTower_Base*  BaseToSet);
-	UFUNCTION(BlueprintCallable, Category = Setup) void SetTowerReference(UTower_Tower* TowerToSet);
 
 	UTowerAimingComponent* TowerAimingComponent = nullptr;
 	

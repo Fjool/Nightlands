@@ -7,8 +7,17 @@
 #include "LevelController.h"
 
 // Pass on components to aiming system
-void ATowerActor::SetBaseReference( UTower_Base*   BaseToSet){ TowerAimingComponent->SetBaseReference(  BaseToSet); }
-void ATowerActor::SetTowerReference(UTower_Tower* TowerToSet){ TowerAimingComponent->SetTowerReference(TowerToSet); }
+void ATowerActor::SetReferences(UTower_Base* BaseToSet, UTower_Tower* TowerToSet, UTower_Turret* TurretToSet, UTower_Barrel* BarrelToSet)
+{
+	if (TowerAimingComponent)
+	{	TowerAimingComponent->SetReferences(  BaseToSet
+										   , TowerToSet
+										   , TurretToSet
+										   , BarrelToSet
+										   );
+	}
+	else { UE_LOG(LogTemp, Warning, TEXT("No TowerAimingComponent")) }
+}
 
 // Sets default values
 ATowerActor::ATowerActor()
