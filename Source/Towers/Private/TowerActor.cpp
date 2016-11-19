@@ -29,6 +29,7 @@ ATowerActor::ATowerActor()
 // Receive instructions on which monster to attack
 void ATowerActor::SetTarget(AMonsterActor* Monster) {        Target  = Monster; }
 bool ATowerActor::HasTarget(                      ) { return Target != nullptr; }
+bool ATowerActor::IsTarget( AMonsterActor* Monster) { return Monster == Target; }
 
 // Called when the game starts or when spawned
 void ATowerActor::BeginPlay()
@@ -45,5 +46,37 @@ void ATowerActor::Tick( float DeltaTime )
 	if (Target) 
 	{	
 		TowerAimingComponent->AimAt(Target->GetActorLocation());		
+	}
+}
+
+// answers true if the distance between tower centre and monster centre is less than tower range
+bool ATowerActor::TargetInRange()
+{
+	if (Target)
+	{	auto Distance = (GetActorLocation() - Target->GetActorLocation()).Size();
+		return (Distance < Range);
+	}
+	else
+	{	return false;
+	}
+}
+
+// called by level controller to cause tower to hurt its target
+bool ATowerActor::HurtTarget()
+{
+	if (TargetInRange())
+	{
+		if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds)
+		{
+			Target->Hurt(Damage);	// TODO Parameterise value for different tower types and upgrades
+			LastFireTime = FPlatformTime::Seconds();
+			return true;
+		}
+		else
+		{	return false;
+		}
+	}
+	else
+	{	return false;
 	}
 }

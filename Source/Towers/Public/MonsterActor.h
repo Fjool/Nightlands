@@ -32,12 +32,10 @@ public:
 	UPROPERTY(EditAnywhere) ALevelController* Controller = nullptr;
 
 private:
-
 	UPROPERTY(EditAnywhere) AActor* Target = nullptr;
-	UPROPERTY(EditAnywhere) float Speed = 1;
+	UPROPERTY(EditAnywhere) float Speed  = 1;
 	UPROPERTY(EditAnywhere) float Health = 100;
 
 	bool ReachedTarget();
-	void RemoveFromGame();
 
 };

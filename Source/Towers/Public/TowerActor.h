@@ -32,19 +32,30 @@ public:
 	virtual void Tick( float DeltaSeconds ) override;
 
 	void SetTarget(AMonsterActor* Monster);
+	bool IsTarget( AMonsterActor* Monster);
 	bool HasTarget();
 
 	UPROPERTY(EditAnywhere) ALevelController* Controller = nullptr;
-
+	
 	UFUNCTION(BlueprintCallable, Category = Setup) void SetReferences( UTower_Base*     BaseToSet
 																	 , UTower_Tower*   TowerToSet
 																	 , UTower_Turret* TurretToSet
 																	 , UTower_Barrel* BarrelToSet
 																	 );
-private:
-	UPROPERTY(EditAnywhere) AMonsterActor* Target = nullptr;
-	UPROPERTY(EditAnywhere) float LaunchSpeed = 100;	// TODO Set sensible default
-
-	UTowerAimingComponent* TowerAimingComponent = nullptr;
 	
+	// instruct the tower to hurt the monster, if possible
+	UFUNCTION(BlueprintCallable, Category = Action) bool HurtTarget();
+
+private:
+	UPROPERTY(EditDefaultsonly) float LaunchSpeed = 100;		// TODO Set sensible default
+	UPROPERTY(EditDefaultsOnly) float ReloadTimeInSeconds = 2;	// TODO Set sensible default
+	UPROPERTY(EditDefaultsOnly) float Range = 500;				// TODO Set sensible default
+	UPROPERTY(EditDefaultsOnly) float Damage = 10;				// TODO Defaults
+
+	AMonsterActor* Target = nullptr;
+	UTowerAimingComponent* TowerAimingComponent = nullptr;
+
+	float LastFireTime = 0;
+	
+	bool TargetInRange();
 };

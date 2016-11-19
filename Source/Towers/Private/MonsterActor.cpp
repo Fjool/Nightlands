@@ -58,4 +58,10 @@ void AMonsterActor::Tick( float DeltaTime )
 void AMonsterActor::Hurt(float damage)
 {
 	Health -= damage;
+	
+	UE_LOG(LogTemp, Warning, TEXT("Ow! %s"), *GetName())
+
+	if (Health < 0)
+	{	Controller->Died(this);	// call out to controller to let it know we died
+	}
 }

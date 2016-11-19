@@ -31,7 +31,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = Setup) TSubclassOf<AMonsterActor> MonsterBlueprint = nullptr;
 	UPROPERTY(EditAnywhere, Category = Setup) AActor* Exit = nullptr;
 	UPROPERTY(EditAnywhere, Category = Setup) float SpawnRate = 1;
-	
+	UPROPERTY(EditAnywhere, Category = Setup) int   MaxSpawn  = 3;
+
+	int NumSpawned = 0;
 	float LastSpawnTime = 0.f;
 
 	AMonsterActor* SpawnMonster();

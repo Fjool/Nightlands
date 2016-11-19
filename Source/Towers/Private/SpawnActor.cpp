@@ -49,10 +49,11 @@ void ASpawnActor::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
-	if (LastSpawnTime > SpawnRate)
+	if ((LastSpawnTime > SpawnRate) & (NumSpawned < MaxSpawn))
 	{
 		SpawnWave();
 		LastSpawnTime = 0;
+		NumSpawned++;
 	}
 
 	LastSpawnTime += DeltaTime;
